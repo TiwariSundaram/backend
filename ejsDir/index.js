@@ -14,3 +14,19 @@ app.get("/",(req,res)=>{
 app.listen(port,()=>{
     console.log(`listening on port ${port}`);  
 })
+app.get("/rollDice",(req,res)=>{
+
+    let diceValue = Math.floor(Math.random()*6+1);
+    res.render("rollDice.ejs",{diceValue})
+})
+
+app.get("/ig/:username",(req,res)=>{
+    let {username}=req.params;
+    const instaData = require("./data.json")
+    const data = instaData[username]
+    if (data){
+    res.render("instagram.ejs",{data})
+    }else{
+        res.render("error.ejs")
+    }
+})
